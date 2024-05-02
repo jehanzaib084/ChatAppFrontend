@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>ChatApp</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+        
+        <!-- Link to Font Awesome stylesheet -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
+        <!-- Your signature information -->
+        <meta name="author" content="Muhammad Jehanzaib">
+        <meta name="description" content="GitHub profile: jehanzaib084">
+    
+    <style>
+        
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh; /* Ensure the body covers the full viewport height */
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif; /* Apply Montserrat font to the entire document */
+            background-color: #2E3061; /* Set background color */
+            color: #28293D; /* Set text color */
+        }
+
+    
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            height: 50px;
+            max-width: 100%;
+            background-color: #555184; /* Light aquamarine */
+            padding: 10px;
+            box-sizing: border-box;
+            border-bottom: 1px solid rgb(119, 119, 119);
+        }
+    
+        .header-left {
+            color: #ffffff; /* Dark green */
+            font-size: 25px;
+            font-weight: 600;
+            flex: 1;
+        }
+    
+        .header-right {
+            display: flex;
+            align-items: center;
+        }
+    
+        .header-right span {
+            margin-left: 18px;
+            cursor: pointer;
+        }
+    
+        .menu-icon {
+            margin-right: 5px;
+        }
+    
+        .avatar {
+            vertical-align: middle;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+    
+        .main-container {
+            flex: 1; /* This will make the main container take up the remaining space */
+            overflow-y: auto; /* Add scrollbar if content exceeds container height */
+        }
+    
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto; /* Add scrollbar when chat divs exceed container height */
+            padding: 10px;
+            background-color: #555184;
+            height: calc(100vh - 110px); /* Set height to maximum available height minus 50px */
+        }
+    
+        .chat {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            padding: 10px;
+            margin-bottom: 5px;
+            background-color: #B2A6BE; /* Light gray */
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            transition: box-shadow .3s ease, transform .2s ease;
+        }
+        .chat:hover{
+            cursor: pointer;
+            box-shadow: 0 8px 50px #23232333;
+            transform: translateY(-3%);
+            opacity: 1;
+        }
+    
+        .profile-pic {
+            width: calc(100% - 80%);
+        }
+    
+        .name {
+            width: calc(100% - 35%);
+        }
+    
+        .time {
+            width: calc(100% - 85%);
+        }
+    
+        .time span {
+            font-size: 11px;
+            color: #3c3c3c; /* Dark gray */
+        }
+
+        .contact-container{
+            display: flex;
+            background-color: #555184;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto; /* Add scrollbar when chat divs exceed container height */
+            padding: 10px;
+            height: calc(100vh - 90px); /* Set height to maximum available height minus 50px */
+        }
+    
+        .input__container {
+            max-width: 300px;
+            margin: auto;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 300px;
+            margin-top: 90px;
+            flex-direction: column;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.8); /* Slightly transparent white */
+            padding: 20px;
+            border-radius: 20px;
+            position: relative;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Soft shadow */
+        }
+
+        .input__label {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-top: 15px;
+            margin-left: 0.4em;
+            color: #000000; /* Dark gray */
+            text-transform: uppercase;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+    
+        .input__description {
+            font-size: 0.6em;
+            font-weight: bold;
+            text-align: center;
+            color: rgba(0, 0, 0, 0.7); /* Darker gray */
+        }
+    
+        .input {
+            border: none;
+            outline: none;
+            width: 94%;
+            padding: 0.6em;
+            padding-left: 0.9em;
+            border-radius: 20px;
+            background: #fff;
+            transition: background 300ms, color 300ms;
+        }
+    
+        .input:hover,
+        .input:focus {
+            background: #000000; /* Black */
+            color: #fff; /* White */
+        }
+    
+        .add-contact-btn-div {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+        }
+    
+        .add-contact-btn {
+            display: flex;
+            border: none;
+            outline: none;
+            padding: 0.6em 1em;
+            border-radius: 20px;
+            background: #555184; /* Light aquamarine */
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 300ms, color 300ms;
+            color: #fff;
+        }
+    
+        .add-contact-btn:hover {
+            background: #FEE9CE; /* Light blue */
+            color: #000000;
+        }
+    
+        .contact-list-container {
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+            padding: 10px;
+            height: calc(100vh - 110px);
+            background-color: #555184;
+        }
+    
+        .contact {
+            padding: 10px;
+            margin-top: 5px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .contact:hover{
+            box-shadow: 0 8px 50px #23232333;
+            transform: translateY(-3%);
+            opacity: 1;
+        }
+    
+        .contact-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+    
+        .contact-name {
+            font-weight: bold;
+        }
+    
+        .contact-number {
+            color: #666;
+        }
+    
+        .footer {
+            display: flex;
+            bottom: 0;
+            font-weight: 600;
+            font-size: medium;
+            height: 50px;
+            width: 100%;
+            flex-direction: row;
+            border-top: 1px solid rgb(149, 149, 149);
+            background-color: #28293D; /* Light green */
+            padding: 10px;
+            box-sizing: border-box;
+            position: fixed;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+    
+        .contacts,
+        .add-contact,
+        .chat-toggle {
+            cursor: pointer;
+            padding: 5px;
+            border-radius: 20px;
+            color: #ffffff;
+        }
+    
+        .profile-icon {
+            cursor: pointer;
+        }
+    
+        .personal-details-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            box-sizing: border-box;
+            height: calc(100vh - 90px);
+            background-color: #555184;
+        }
+    
+        .card {
+            width: 270px;
+            height: 254px;
+            border-radius: 20px;
+            padding: 5px;
+            box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+            background-image: linear-gradient(144deg, #b693ff, #5b42f3 50%, #00DDEB); /* Purple to blue */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        .card__content {
+            background: #05062d; /* Dark blue */
+            border-radius: 17px;
+            width: 90%;
+            height: 90%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+    
+        /* CSS for the search input */
+        .group {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            line-height: 28px;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            display: flex;
+            flex-direction: row;
+            height: 50px; /* Adjust footer height */
+            background-color: #28293D; /* Light green */
+            padding: 10px;
+            box-sizing: border-box;
+        }
+
+        .chat-page-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            height: 100vh; /* Total viewport height */
+        }
+
+        .chat-messages-container {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            flex-grow: 1; /* Take up remaining space */
+            overflow-y: auto; /* Add scrollbar if content exceeds container height */
+            background-color: #2E3061; /* Adjust background color */
+        }
+
+       
+        .chat-page-header {
+            display: flex; /* Add this line */
+            height: 40px;
+            background-color: #28293D; /* Light aquamarine */
+            padding: 5px;
+            width: 100%;
+            box-sizing: border-box;
+            align-items: center;
+            flex-direction: row;
+            justify-content:space-between;
+        }
+
+        .user-name {
+            color: #FEE9CE;
+            font-size: 18px;
+            font-weight: 600;
+            width: 50%; /* Adjust width */
+        }
+
+        .back-div {
+            width: 30%; /* Adjust width */
+        }
+
+        /* CSS for My Message */
+        .my-message {
+            background-color: #4CAF50; /* Green */
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            align-self: flex-end; /* Align to right side */
+            margin: 5px 10px 5px 0; /* Adjust margin */
+            max-width: 70%; /* Limit width to 70% of container */
+            word-wrap: break-word; /* Allow long messages to wrap */
+        }
+
+        /* CSS for Other User's Message */
+        .other-message {
+            background-color: #2196F3; /* Light blue */
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            align-self: flex-start; /* Align to left side */
+            margin: 5px 0 5px 10px; /* Adjust margin */
+            max-width: 70%; /* Limit width to 70% of container */
+            word-wrap: break-word; /* Allow long messages to wrap */
+        }
+
+
+
+        .chat-input-section {
+            display: flex;
+            flex-direction: row;
+            height: 50px; /* Adjust footer height */
+            background-color: #28293D; /* Light green */
+            padding: 10px;
+            box-sizing: border-box;
+            width: 100%;
+            align-items: center;
+            justify-content: space-evenly;
+        }
+        .messageBox {
+            width: 100%;
+            height: 50px;
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding-top: 10px;
+            justify-content:space-evenly;
+            background-color: #28293D;
+        }
+
+        .input{ 
+            width: calc(100% - 50px); 
+            padding: 8px;  
+            border-radius: 5px; 
+        } 
+  
+        .sendBtn{ 
+            padding: 8px;  
+            background-color: #4CAF50; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+        }
+
+        #editName,
+        #editPhone{
+            cursor: pointer;
+        }
+
+
+    </style>
+    
+</head>
+<body>
+    <div class="default">
+        <div class="header">
+            <div class="header-left">
+                <span class="app-name">Chat App</span>
+            </div>
+            <div class="header-right">
+                <div class="profile-icon" onclick="togglePersonalProfile()">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+        </div>
+        <!-- Main Container -->
+        <div class="main-container">
+            <!-- Chat Container -->
+            <div class="chat-container" id="chatContainer">
+                <!-- Chat Messages will be added dynamically here -->
+            </div>
+    
+            <!-- Contact Adding Container -->
+            <div class="contact-container" id="contactContainer" style="display: none;">
+                <div class="input__container">
+                    <label class="input__label">Name</label>
+                    <input placeholder="Enter name" class="input" id="contactNameInput" type="text">
+                    <label class="input__label">Phone Number</label>
+                    <input placeholder="Enter phone number" class="input" id="phoneNumberInput" type="tel">
+                    <div class="add-contact-btn-div">
+                        <button class="add-contact-btn" onclick="addContact()">Add Contact</button>
+                    </div>
+                    <p class="input__description" id="contactAddMessage"></p>
+                </div>
+            </div>
+    
+            <!-- Contact List Container -->
+            <div class="contact-list-container" id="contactListContainer" style="display: none;">
+                <!-- Search Bar -->
+                <div class="group">
+                    <input placeholder="Search Contacts" type="search" class="input" oninput="filterContacts(this.value)">
+                </div>
+                <!-- Contacts will be displayed here -->
+                <div class="contact"><div class="contact-info"><div class="contact-name">Ali Khan</div><div class="contact-number">0301-1234567</div></div></div>
+                <div class="contact"><div class="contact-info"><div class="contact-name">Fatima Ahmed</div><div class="contact-number">0321-2345678</div></div></div>
+                <div class="contact"><div class="contact-info"><div class="contact-name">Hassan Ali</div><div class="contact-number">0333-3456789</div></div></div>
+                <div class="contact"><div class="contact-info"><div class="contact-name">Sara Khan</div><div class="contact-number">0312-4567890</div></div></div>
+                <div class="contact"><div class="contact-info"><div class="contact-name">Ahmed Khan</div><div class="contact-number">0344-5678901</div></div></div>
+
+            </div>
+    
+            <!-- Personal Details Container -->
+            <div class="personal-details-container" id="personalDetailsContainer" style="display: none;">
+                <div class="card">
+                    <div class="card__content">
+                        <!-- Personal Details Content -->
+                        <p style="color: white; margin: 20px;">Name: <span id="nameField">Ali Ahmad</span> <i class="fas fa-pencil-alt edit-icon" id="editName"></i></p>
+                        <p style="color: white;">Phone: <span id="phoneField">0321-2345678</span> <i class="fas fa-pencil-alt edit-icon" id="editPhone"></i></p>
+                    </div>
+                </div>                
+            </div>
+            
+        </div>
+    
+        <div class="footer">
+            <div class="chat-toggle" onclick="toggleContainer('chatContainer')">
+                <span>Chat</span>
+            </div>
+            <div class="contacts" onclick="toggleContactListContainer()">
+                <span>My Contacts</span>
+            </div>
+            <div class="add-contact" onclick="toggleContactContainer()">
+                <span>Add Contact</span>
+            </div>
+        </div>
+
+        <!-- Chat Page Container -->
+        <div class="chat-page-container" id="chatPageContainer" style="display: none;">
+            <!-- Chat Page Header -->
+            <div class="chat-page-header">
+                <div class="add-contact-btn-div">
+                    <button class="add-contact-btn" onclick="goBack()">Home</button>
+                </div>                                
+                <div class="user-name">
+                    <span class="chat-username"></span>
+                </div>
+            </div>
+
+            <!-- Chat Messages Container -->
+            <div class="chat-messages-container">
+                <!-- Example message -->
+                <div class="other-message">
+                    <span>Other user's message</span>
+                </div>
+                <!-- Example message -->
+                <div class="my-message">
+                    <span>My message</span>
+                </div>
+            </div>
+
+            <!-- Chat Input Section -->
+            <div class="messageBox">
+                <div class="group">
+                    <input placeholder="Enter your message..." type="message" class="input" id="messageInput">
+                </div>
+                <div class="add-contact-btn-div">
+                    <button class="add-contact-btn" onclick="sendMessage()" style="margin-bottom: 10px;">Send</button>
+                </div>
+            </div>
+            
+
+        </div>
+    </div>
+
+    
+
+
+
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+            const footerDivs = document.querySelectorAll('.footer > div');
+
+            // Add click event listener to each footer div
+            footerDivs.forEach(div => {
+                div.addEventListener('click', function () {
+                    // Reset background color and border for all footer divs
+                    footerDivs.forEach(div => {
+                        div.style.backgroundColor = '';
+                        div.style.color = '';
+                    });
+
+                    // Set green background color and border for the clicked div
+                    this.style.backgroundColor = '#FEE9CE';
+                    this.style.color = '#000000';
+                });
+            });
+
+            // Get the message input element
+            const messageInput = document.getElementById('messageInput');
+
+            // Add event listener for key press
+            messageInput.addEventListener('keypress', function(event) {
+                // Check if the key pressed is Enter (key code 13)
+                if (event.keyCode === 13) {
+                    // Call the sendMessage function
+                    sendMessage();
+                }
+            });
+
+            const chatElements = document.querySelectorAll('.chat');
+
+            // Add click event listener to each chat element
+            chatElements.forEach(chat => {
+                chat.addEventListener('click', function() {
+                    goBack(this); // Pass the clicked chat element to the goBack function
+                });
+            });
+
+
+        });
+
+        // Function to handle editing name
+        document.getElementById('editName').addEventListener('click', function() {
+            // Get the name field
+            var nameField = document.getElementById('nameField');
+
+            // Prompt the user to enter new name
+            var newName = prompt('Enter new name:', nameField.innerText);
+
+            // Update the name field if a new name is entered
+            if (newName !== null) {
+                nameField.innerText = newName;
+            }
+        });
+
+        // Function to handle editing phone number
+        document.getElementById('editPhone').addEventListener('click', function() {
+            // Get the phone field
+            var phoneField = document.getElementById('phoneField');
+
+            // Prompt the user to enter new phone number
+            var newPhone = prompt('Enter new phone number:', phoneField.innerText);
+
+            // Update the phone field if a new number is entered
+            if (newPhone !== null) {
+                phoneField.innerText = newPhone;
+            }
+        });
+
+
+        function sendMessage() {
+            // Get the message input element
+            const messageInput = document.getElementById('messageInput');
+            // Get the chat messages container
+            const chatMessagesContainer = document.querySelector('.chat-messages-container');
+
+            // Get the message text from the input element
+            const messageText = messageInput.value.trim();
+
+            if (messageText !== '') {
+                // Create a new message element
+                const messageElement = document.createElement('div');
+                messageElement.classList.add('my-message');
+                messageElement.innerHTML = `<span>${messageText}</span>`;
+                // Append the message element to the chat messages container
+                chatMessagesContainer.appendChild(messageElement);
+                // Clear the message input field
+                messageInput.value = '';
+
+                // Scroll the chat messages container to the bottom
+                chatMessagesContainer.scrollTop = chatMessagesContainer.scrollHeight;
+            } else {
+                // Handle empty message input
+                alert('Please enter a message.');
+            }
+        }
+
+
+
+
+        function goBack(chatElement) {
+            let mega = document.getElementById('chatContainer');
+            let sigma = document.getElementById('chatPageContainer');
+            let header = document.querySelector('.header');
+            let footer = document.querySelector('.footer');
+            let usernameSpan = document.querySelector('.chat-username'); // Select the username span
+
+            if (mega.style.display === 'flex' || mega.style.display === '') {
+                mega.style.display = 'none';
+                sigma.style.display = 'flex';
+                header.style.display = 'none';
+                footer.style.display = 'none';
+                console.log('none!');
+            } else {
+                mega.style.display = 'flex';
+                sigma.style.display = 'none';
+                header.style.display = 'flex';
+                footer.style.display = 'flex';
+                console.log('flex!');
+            }
+
+            // Check if the chat element contains the necessary structure
+            if (chatElement && chatElement.querySelector('.name span')) {
+                // Retrieve the username from the clicked chat element
+                const username = chatElement.querySelector('.name span').textContent;
+                console.log('Username:', username);
+                
+                // Fill the username span with the retrieved username
+                usernameSpan.innerHTML = username;
+            } else {
+                console.log('Chat element structure is not as expected.');
+            }
+
+            console.log('BtnGoBack!');
+        }
+
+
+
+
+        // Function to filter contacts based on search input
+        function filterContacts(inputValue) {
+            const filter = inputValue.toUpperCase();
+            const contacts = document.querySelectorAll('.contact');
+
+            contacts.forEach(contact => {
+                const name = contact.querySelector('.contact-name').textContent.toUpperCase();
+                const number = contact.querySelector('.contact-number').textContent.toUpperCase();
+                if (name.includes(filter) || number.includes(filter)) {
+                    contact.style.display = 'block';
+                } else {
+                    contact.style.display = 'none';
+                }
+            });
+        }
+
+
+
+        function toggleContainer(containerId) {
+            const containers = ['chatContainer', 'contactContainer', 'contactListContainer', 'personalDetailsContainer'];
+
+            // Hide all containers except the one with containerId
+            containers.forEach(container => {
+                const element = document.getElementById(container);
+                if (container === containerId) {
+                    element.style.display = 'flex';
+                } else {
+                    element.style.display = 'none';
+                }
+            });
+        }
+
+        // Function to toggle contact adding container
+        function toggleContactContainer() {
+            toggleContainer('contactContainer');
+        }
+
+        // Function to toggle contact list container
+        function toggleContactListContainer() {
+            toggleContainer('contactListContainer');
+        }
+
+        // Function to toggle personal details container
+        function togglePersonalProfile() {
+            toggleContainer('personalDetailsContainer');
+        }
+
+        // Function to add contact
+        function addContact() {
+            const contactNameInput = document.getElementById('contactNameInput');
+            const phoneNumberInput = document.getElementById('phoneNumberInput');
+            const contactListContainer = document.getElementById('contactListContainer');
+            const contactAddMessage = document.getElementById('contactAddMessage');
+
+            const contactName = contactNameInput.value.trim();
+            const phoneNumber = phoneNumberInput.value.trim();
+
+            if (contactName !== '' && phoneNumber !== '') {
+                // Create new contact card
+                const contactCard = document.createElement('div');
+                contactCard.classList.add('contact');
+
+                // Create contact info elements
+                const contactInfo = document.createElement('div');
+                contactInfo.classList.add('contact-info');
+
+                const contactNameElem = document.createElement('div');
+                contactNameElem.classList.add('contact-name');
+                contactNameElem.textContent = contactName;
+
+                const contactNumberElem = document.createElement('div');
+                contactNumberElem.classList.add('contact-number');
+                contactNumberElem.textContent = phoneNumber;
+
+                // Append contact info to contact card
+                contactInfo.appendChild(contactNameElem);
+                contactInfo.appendChild(contactNumberElem);
+
+                // Append contact info to contact card
+                contactCard.appendChild(contactInfo);
+
+                // Append contact card to contact list container
+                contactListContainer.appendChild(contactCard);
+
+                // Display success message
+                contactAddMessage.textContent = 'Contact added successfully!';
+                contactNameInput.value = ''; // Clear name input field
+                phoneNumberInput.value = ''; // Clear phone number input field
+            } else {
+                contactAddMessage.textContent = 'Please enter both name and phone number.';
+            }
+
+            // Hide the message after 3 seconds
+            setTimeout(() => {
+                contactAddMessage.textContent = '';
+            }, 3000);
+        }
+
+        // Generate random chat messages
+        function generateChatMessages() {
+            const chatContainer = document.getElementById('chatContainer');
+            const totalMessages = 20;
+
+            for (let i = 0; i < totalMessages; i++) {
+                // Random profile picture URL from a placeholder service like Lorem Picsum
+                const profilePic = `https://picsum.photos/50?random=${i}`;
+                const name = 'User ' + (i + 1);
+                const time = getRandomTime();
+
+                const messageHTML = `
+                    <div class="chat" id="chat">
+                        <div class="profile-pic">
+                            <img src="${profilePic}" alt="Avatar" class="avatar">
+                        </div>
+                        <div class="name">
+                            <span>${name}</span>
+                        </div>
+                        <div class="time">
+                            <span>${time}</span>
+                        </div>
+                    </div>
+                `;
+
+                // Append the message HTML to the chatContainer
+                chatContainer.insertAdjacentHTML('beforeend', messageHTML);
+            }
+        }
+
+
+        // Generate a random time string (for demonstration purposes)
+        function getRandomTime() {
+            const hours = Math.floor(Math.random() * 24);
+            const minutes = Math.floor(Math.random() * 60);
+            return `${hours < 10 ? '0' + hours : hours}:${minutes < 10 ? '0' + minutes : minutes} ${hours < 12 ? 'AM' : 'PM'}`;
+        }
+
+        // Initialize chat messages and slider
+        generateChatMessages();
+    </script>
+</body>
+</html>
